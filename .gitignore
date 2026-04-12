@@ -1,0 +1,7 @@
+*.class
+.vscode/
+
+# Optional local dependency cache / IDE output
+out/
+build/
+bin/
