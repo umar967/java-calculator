@@ -9,7 +9,7 @@ public class DatabaseManager {
     public DatabaseManager() throws Exception {
         String url = "jdbc:mysql://localhost:3306/calculator";
         String user = "root"; // Change if your MySQL username is different
-        String pass = "";     // Change if your MySQL has a password
+        String pass = "12345";     // Change if your MySQL has a password
         conn = DriverManager.getConnection(url, user, pass);
         }
     
@@ -29,7 +29,7 @@ public class DatabaseManager {
     }
     // Retrieve all history entries
 public ResultSet getAllHistory() {
-    String sql = "SELECT * FROM history ORDER BY timestamp DESC";
+    String sql = "SELECT * FROM history";
     try {
         Statement stmt = conn.createStatement();
         return stmt.executeQuery(sql);

@@ -1,0 +1,39 @@
+services:
+
+  # ── MySQL Database ──────────────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: calculator-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: calculator
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql   # runs once on first start
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p12345"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ── Tomcat Web Application ──────────────────────────────────────────────────
+  app:
+    build: .
+    container_name: calculator-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST:     db
+      MYSQL_PORT:     3306
+      MYSQL_DB:       calculator
+      MYSQL_USER:     root
+      MYSQL_PASSWORD: 12345
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

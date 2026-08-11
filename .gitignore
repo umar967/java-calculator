@@ -1,7 +1,21 @@
+# Compiled class files
 *.class
-.vscode/
 
-# Optional local dependency cache / IDE output
+# Maven build output
+target/
+
+# IDE directories
+.vscode/
+.idea/
+*.iml
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Legacy output dirs
 out/
 build/
 bin/
